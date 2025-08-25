@@ -37,6 +37,8 @@ function reducer(state, action) {
 function App() {
   const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
 
+  const numQuestions = questions.length;
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -63,7 +65,7 @@ function App() {
       <Main>
         {status === 'loading' && <Loader />}
         {status === 'error' && <Error />}
-        {status === 'ready' && <StartScreen questions={questions} />}
+        {status === 'ready' && <StartScreen numQuestions={numQuestions} />}
       </Main>
     </>
   );
