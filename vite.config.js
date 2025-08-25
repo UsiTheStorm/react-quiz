@@ -5,10 +5,10 @@ const isGitHub = process.env.DEPLOY_TARGET === 'GH';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react()],
-    base: isGitHub ? '/YOURREPO/' : '/',
-    build: {
-        sourcemap: true,
-        emptyOutDir: true,
-    },
+  plugins: [react()],
+  base: isGitHub ? '/react-quiz/' : '/',
+  build: {
+    sourcemap: true,
+    emptyOutDir: true,
+  },
 });
