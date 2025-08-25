@@ -5,6 +5,9 @@ import './App.css';
 // import questions from './questions.json';
 import Header from './components/Header';
 import Main from './components/Main';
+import Loader from './components/Loader';
+import Error from './components/Error';
+import StartScreen from './components/StartScreen';
 
 const initialState = {
   questions: [],
@@ -21,7 +24,7 @@ function reducer(state, action) {
         questions: action.payload,
         status: 'ready',
       };
-    case 'dataFaild':
+    case 'dataFailed':
       return {
         ...state,
         status: 'error',
@@ -32,7 +35,7 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     async function fetchData() {
@@ -58,7 +61,9 @@ function App() {
     <>
       <Header />
       <Main>
-        <h2>Hello</h2>
+        {status === 'loading' && <Loader />}
+        {status === 'error' && <Error />}
+        {status === 'ready' && <StartScreen questions={questions} />}
       </Main>
     </>
   );
