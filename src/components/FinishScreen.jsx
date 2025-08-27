@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FinishScreen({ points, maxPoints, highscore }) {
+function FinishScreen({ points, maxPoints, highscore, dispatch }) {
   const persentage = Math.round((points / maxPoints) * 100);
 
   let emoji;
@@ -16,6 +16,9 @@ function FinishScreen({ points, maxPoints, highscore }) {
         You scored <span>{emoji}</span> <strong>{points}</strong> out of {maxPoints} ({persentage}%)
       </p>
       <p className="highscore">(High Score: {highscore} points)</p>
+      <button className="btn btn-ui" onClick={() => dispatch({ type: 'restart' })}>
+        Restart
+      </button>
     </>
   );
 }
