@@ -32,6 +32,7 @@ body {
   color: var(--color-light);
   background-color: var(--color-darkest);
   padding: 3.2rem;
+  overflow-y: scroll;
 }
 
 .app {
@@ -100,7 +101,7 @@ h4 {
 }
 
 .progress {
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
   display: grid;
   justify-content: space-between;
   gap: 1.2rem;
