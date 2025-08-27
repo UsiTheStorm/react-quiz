@@ -8,6 +8,7 @@ import Main from './components/Main';
 import Loader from './components/Loader';
 import Error from './components/Error';
 import StartScreen from './components/StartScreen';
+import FinishScreen from './components/FinishScreen';
 import Question from './components/Question';
 import NextButton from './components/NextButton';
 import Progress from './components/Progress';
@@ -56,6 +57,8 @@ function reducer(state, action) {
         index: state.index + 1,
         answer: null,
       };
+    case 'finish':
+      return { ...state, status: 'finished' };
     default:
       throw new Error('Unknown action');
   }
@@ -80,7 +83,6 @@ function App() {
         }
         const data = await res.json();
         dispatch({ type: 'dataReceived', payload: data });
-        console.log(data);
       } catch (err) {
         dispatch({ type: 'dataFailed' });
         console.error(err);
@@ -107,9 +109,15 @@ function App() {
               answer={answer}
             />
             <Question question={questions[index]} dispatch={dispatch} answer={answer} />
-            <NextButton dispatch={dispatch} answer={answer} />
+            <NextButton
+              dispatch={dispatch}
+              answer={answer}
+              index={index}
+              numQuestions={numQuestions}
+            />
           </>
         )}
+        {status === 'finished' && <FinishScreen points={points} maxPoints={maxPossiblePoints} />}
       </Main>
     </>
   );
