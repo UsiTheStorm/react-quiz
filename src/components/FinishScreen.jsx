@@ -4,11 +4,15 @@ function FinishScreen({ points, maxPoints, highscore, dispatch }) {
   const persentage = Math.round((points / maxPoints) * 100);
 
   let emoji;
-  if (persentage === 100) emoji = '🥇';
-  if (persentage >= 80) emoji = '🎉';
-  if (persentage >= 50) emoji = '👌';
-  if (persentage >= 0) emoji = '🤨';
-  else emoji = '🙃';
+  if (persentage === 100) {
+    emoji = '🥇';
+  } else if (persentage >= 80) {
+    emoji = '🎉';
+  } else if (persentage >= 50) {
+    emoji = '👌';
+  } else {
+    emoji = '🙃';
+  }
 
   return (
     <>
