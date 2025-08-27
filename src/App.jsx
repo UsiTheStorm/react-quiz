@@ -14,6 +14,7 @@ import Timer from './components/Timer';
 import Progress from './components/Progress';
 import Footer from './components/Footer';
 
+import { useFetchQuestions } from './hooks/UseFetchQuestions';
 
 const SECS_PER_QUESTION = 30;
 
@@ -98,24 +99,7 @@ function App() {
   const numQuestions = questions.length;
   const maxPossiblePoints = questions.reduce((prev, cur) => prev + cur.points, 0);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await fetch('http://localhost:3001/questions');
-
-        if (!res.ok) {
-          throw new Error('Failed to fetch questions');
-        }
-        const data = await res.json();
-        dispatch({ type: 'dataReceived', payload: data });
-      } catch (err) {
-        dispatch({ type: 'dataFailed' });
-        console.error(err);
-      }
-    }
-
-    fetchData();
-  }, []);
+  useFetchQuestions(dispatch, 'http://localhost:3001/questions');
 
   return (
     <>
