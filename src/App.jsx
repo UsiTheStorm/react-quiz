@@ -2,7 +2,6 @@ import { useState, useEffect, useReducer } from 'react';
 
 import './App.css';
 
-// import questions from './questions.json';
 import Header from './components/Header';
 import Main from './components/Main';
 import Loader from './components/Loader';
@@ -11,8 +10,12 @@ import StartScreen from './components/StartScreen';
 import FinishScreen from './components/FinishScreen';
 import Question from './components/Question';
 import NextButton from './components/NextButton';
+import Timer from './components/Timer';
 import Progress from './components/Progress';
 import Footer from './components/Footer';
+
+
+const SECS_PER_QUESTION = 30;
 
 const initialState = {
   questions: [],
@@ -23,6 +26,7 @@ const initialState = {
   answer: null,
   points: 0,
   highscore: 0,
+  secondsRemaining: null,
 };
 
 function reducer(state, action) {
@@ -41,6 +45,7 @@ function reducer(state, action) {
     case 'start':
       return {
         ...state,
+        secondsRemaining: state.questions.length * SECS_PER_QUESTION,
         status: 'active',
       };
     case 'newAnswer': {
@@ -75,16 +80,20 @@ function reducer(state, action) {
         status: 'active',
         highscore: state.highscore,
       };
+    case 'tick':
+      return {
+        ...state,
+        secondsRemaining: state.secondsRemaining - 1,
+        status: state.secondsRemaining < 2 ? 'finished' : state.status,
+      };
     default:
       throw new Error('Unknown action');
   }
 }
 
 function App() {
-  const [{ questions, status, index, answer, points, highscore }, dispatch] = useReducer(
-    reducer,
-    initialState,
-  );
+  const [{ questions, status, index, answer, points, highscore, secondsRemaining }, dispatch] =
+    useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
   const maxPossiblePoints = questions.reduce((prev, cur) => prev + cur.points, 0);
@@ -132,6 +141,7 @@ function App() {
                 index={index}
                 numQuestions={numQuestions}
               />
+              <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
             </Footer>
           </>
         )}
