@@ -78,7 +78,7 @@ function reducer(state, action) {
       return {
         ...initialState,
         questions: state.questions,
-        status: 'active',
+        status: 'ready',
         highscore: state.highscore,
       };
     case 'tick':
