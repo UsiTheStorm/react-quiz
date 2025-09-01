@@ -1,6 +1,7 @@
 import { useState, useEffect, useReducer } from 'react';
 
 import './App.css';
+import questionsData from '../data/questions.json';
 
 import Header from './components/Header';
 import Main from './components/Main';
@@ -99,7 +100,20 @@ function App() {
   const numQuestions = questions.length;
   const maxPossiblePoints = questions.reduce((prev, cur) => prev + cur.points, 0);
 
-  useFetchQuestions(dispatch, 'http://localhost:3001/questions');
+  //! Fetch from local hosed api
+  // useFetchQuestions(dispatch, 'http://localhost:3001/questions');
+
+  // Local data for github deploy
+  useEffect(() => {
+    setTimeout(() => {
+      try {
+        dispatch({ type: 'dataReceived', payload: questionsData.questions });
+      } catch (err) {
+        dispatch({ type: 'dataFailed' });
+        console.error(err);
+      }
+    }, 1000);
+  }, [dispatch]);
 
   return (
     <>
