@@ -103,7 +103,7 @@ function App() {
   //! Fetch from local hosed api
   // useFetchQuestions(dispatch, 'http://localhost:3001/questions');
 
-  // Local data for github deploy
+  //! Local data for github deploy
   useEffect(() => {
     setTimeout(() => {
       try {

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Options from './Options';
 
 function Question({ question, dispatch, answer }) {

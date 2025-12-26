@@ -1,5 +1,3 @@
-import React from 'react';
-
 function StartScreen({ numQuestions, dispatch }) {
   return (
     <div className="start">
