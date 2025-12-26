@@ -1,8 +1,8 @@
-import { createContext, use, useContext, useEffect, useMemo, useReducer } from 'react';
+import { createContext, useContext, useEffect, useMemo, useReducer } from 'react';
 
-import questionsData from '../data/questions.json';
+import questionsData from '../../data/questions.json';
 
-import { useFetchQuestions } from './hooks/UseFetchQuestions';
+import { useFetchQuestions } from '../hooks/UseFetchQuestions.js';
 
 const QuizContext = createContext();
 
